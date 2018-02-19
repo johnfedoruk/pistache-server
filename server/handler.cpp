@@ -15,14 +15,26 @@ void ServerHandler::onRequest(const Pistache::Http::Request &request, Pistache::
             std::string token = token_header->token();
             if (TOKEN.compare(token) == 0)
             {
-                response.send(Pistache::Http::Code::Ok, "Hello, World");
+                this->onSuccess(request,&response);
                 return;
             }
         }
-        response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
+        this->onUnauthorized(request,&response);
     }
     catch (int e)
     {
-        response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
+        this->onError(request,&response);
     }
 }
+
+void ServerHandler::onSuccess(const Pistache::Http::Request &request, Pistache::Http::ResponseWriter* response){
+    response->send(Pistache::Http::Code::Ok, "Hello, World");
+};
+
+void ServerHandler::onUnauthorized(const Pistache::Http::Request &request, Pistache::Http::ResponseWriter* response){
+    response->send(Pistache::Http::Code::Unauthorized, "Unauthorized");
+};
+
+void ServerHandler::onError(const Pistache::Http::Request &request, Pistache::Http::ResponseWriter* response){
+    response->send(Pistache::Http::Code::Internal_Server_Error, "Error");
+};
