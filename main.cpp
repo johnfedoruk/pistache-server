@@ -1,5 +1,11 @@
 #include <iostream>
+#include <string>
 
-int main(int argc,char* argv[]) {
-	return 0;
+#define CORES 4
+
+int main(int argc, char *argv[])
+{
+    const unsigned int cores = CORES;
+    std::cout << "Starting server on " << cores << " cores" << std::endl;
+    return 0;
 }
