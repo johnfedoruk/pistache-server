@@ -3,19 +3,10 @@
 #include <iostream>
 #include <string>
 
+#include "server/handler.hpp"
+
 #define CORES 4
 #define PORT 8080
-
-class ServerHandler : public Pistache::Http::Handler
-{
-  public:
-    HTTP_PROTOTYPE(ServerHandler)
-
-    void onRequest(const Pistache::Http::Request &request, Pistache::Http::ResponseWriter response)
-    {
-        response.send(Pistache::Http::Code::Ok, "Hello world");
-    }
-};
 
 int main(int argc, char *argv[])
 {
